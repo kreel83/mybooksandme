@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_30_222751) do
+ActiveRecord::Schema.define(version: 2019_11_30_222939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,26 @@ ActiveRecord::Schema.define(version: 2019_11_30_222751) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "private_reviews", force: :cascade do |t|
+    t.bigint "readinglist_id", null: false
+    t.text "review"
+    t.text "feelings"
+    t.text "how"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["readinglist_id"], name: "index_private_reviews_on_readinglist_id"
+  end
+
+  create_table "public_reviews", force: :cascade do |t|
+    t.bigint "readinglist_id", null: false
+    t.text "review"
+    t.integer "like"
+    t.integer "unlike"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["readinglist_id"], name: "index_public_reviews_on_readinglist_id"
+  end
+
   create_table "readinglists", force: :cascade do |t|
     t.bigint "reading_id", null: false
     t.datetime "begindate"
@@ -104,6 +124,15 @@ ActiveRecord::Schema.define(version: 2019_11_30_222751) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wishslists", force: :cascade do |t|
+    t.bigint "reading_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["reading_id"], name: "index_wishslists_on_reading_id"
+    t.index ["user_id"], name: "index_wishslists_on_user_id"
+  end
+
   add_foreign_key "actualreadings", "readings"
   add_foreign_key "actualreadings", "users"
   add_foreign_key "categories", "googlecategories"
@@ -112,7 +141,11 @@ ActiveRecord::Schema.define(version: 2019_11_30_222751) do
   add_foreign_key "criterions", "readinglists"
   add_foreign_key "endings", "endinglists"
   add_foreign_key "endings", "readings"
+  add_foreign_key "private_reviews", "readinglists"
+  add_foreign_key "public_reviews", "readinglists"
   add_foreign_key "readinglists", "readings"
   add_foreign_key "readinglists", "users"
   add_foreign_key "readings", "categories"
+  add_foreign_key "wishslists", "readings"
+  add_foreign_key "wishslists", "users"
 end
