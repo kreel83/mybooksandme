@@ -1,0 +1,21 @@
+<h1>search</h1>
+<div class="container">
+  <form action="searchs/index">
+  <input type="text" name="search">
+  <button type="submit">search</button>
+  </form>
+
+  <hr>
+  <div class="contains">
+    <% @fj.each do |book| %>
+    <div class="card">
+      <div class="card-body">
+        <%= image_tag(book['volumeInfo']['imageLinks']['smallThumbnail'], height: '60', width: '45') %>
+          <%= book['volumeInfo']['title'] %>
+      </div>
+    </div>
+
+    <% end %>
+  </div>
+</div>
+
