@@ -1,0 +1,2 @@
+class Googlecategory < ApplicationRecord
+end
