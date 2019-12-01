@@ -6,16 +6,21 @@
   </form>
 
   <hr>
+  <form action="store" method="get" id="form">
+  <input type="hidden" name="dataId" value="" id="id">
   <div class="contains">
     <% @fj.each do |book| %>
     <div class="card">
       <div class="card-body">
-        <%= image_tag(book['volumeInfo']['imageLinks']['smallThumbnail'], height: '60', width: '45') %>
-          <%= book['volumeInfo']['title'] %>
+        <%= image_tag(book['volumeInfo']['imageLinks']['smallThumbnail'], height: '60', width: '45', data: {"id" => book['id']}) %>
+        <%= book['volumeInfo']['title'] %>
       </div>
     </div>
 
     <% end %>
   </div>
+  </form>
 </div>
+
+
 

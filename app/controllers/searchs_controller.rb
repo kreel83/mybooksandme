@@ -10,6 +10,10 @@ class SearchsController < ApplicationController
       f = open(url).read
       fj = JSON.parse(f)
       @fj = fj['items']
+  end
 
+  def store
+    session['search'] = params[:dataId]
+    raise
   end
 end
